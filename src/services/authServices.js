@@ -4,11 +4,11 @@ import { BASE_URL } from "../lib/constants/Constants";
 class AuthService {
   async registerUser(data) {
     try {
-      const resposne = await axios.post(
+      const response = await axios.post(
         `${BASE_URL}/api/v1/users/register`,
         data
       );
-      return resposne;
+      return response.data;
     } catch (error) {
       throw error;
     }
@@ -16,12 +16,12 @@ class AuthService {
 
   async loginUser(data){
     try {
-        const resposne=await axios.post(
+        const response=await axios.post(
             `${BASE_URL}/api/v1/users/login`,
             data,
             {withCredentials:true}
         )
-        return resposne
+        return response.data
     } catch (error) {
         throw error
     }

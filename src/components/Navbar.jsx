@@ -11,12 +11,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useDispatch, useSelector } from "react-redux";
+import {logout} from '../store/authSlice.js'
 
 const Navbar = () => {
+  const authStatus=useSelector((status)=>status.auth.status)
+  const dispatch=useDispatch()
   const [isOpen, setIsOpen] = useState(false);
   const handleClose = () => setIsOpen(false);
   const handleOpen = () => setIsOpen(true);
-
+  const handleLogOut=()=>{
+    dispatch(logout())
+  }
   return (
     <div>
       <nav className="bg-teal-600 text-white shadow-lg">
@@ -57,9 +63,21 @@ const Navbar = () => {
             </div>
             <div className="hidden md:block">
               <div className="ml-4 flex justify-end md:ml-6 space-x-5">
-                {/* <button className="bg-teal-500 p-1 rounded-full text-white hover:bg-teal-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-teal-600 focus:ring-white">
-                  <UserCircle2Icon className="h-6 w-6" aria-hidden="true" />
-                </button> */}
+              {!authStatus?
+              <div className="space-x-3">
+                <Button
+                  onClick={handleOpen}
+                  className="bg-teal-500 text-white hover:bg-teal-600"
+                >
+                  Login
+                </Button>
+                <Link
+                  to={"/signup"}
+                  className="bg-teal-500 text-white hover:bg-teal-600 text-center p-2 rounded-lg "
+                >
+                  sign Up
+                </Link>
+                </div>:
                 <DropdownMenu>
                   <DropdownMenuTrigger>  <UserCircle2Icon className="h-6 w-6" aria-hidden="true" /></DropdownMenuTrigger>
                   <DropdownMenuContent>
@@ -68,16 +86,10 @@ const Navbar = () => {
                     <DropdownMenuItem><User/> Profile</DropdownMenuItem>
                     <DropdownMenuItem><Building2/>Your Companies</DropdownMenuItem>
                     <DropdownMenuItem><HelpCircle/>Help</DropdownMenuItem>
-                    <DropdownMenuItem><LogOutIcon className="mr-2 h-4 w-4" aria-hidden="true" />Logout</DropdownMenuItem>
+                    <DropdownMenuItem><LogOutIcon className="mr-2 h-4 w-4" aria-hidden="true" /><div onClick={handleLogOut}>Logout</div></DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
-                <Button
-                  onClick={handleOpen}
-                  className="bg-teal-500 text-white hover:bg-teal-600"
-                >
-                  Login
-                </Button>
-
+                }
                 {/* Login Button */}
                 <div className="ml-4 flex items-center"></div>
 

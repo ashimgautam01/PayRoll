@@ -11,18 +11,27 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
-import authService from "../services/authServices";
 import { useNavigate } from "react-router-dom";
+import { useSelector,useDispatch } from "react-redux";
+import { login } from "../store/authSlice";
+import authService from "../services/authServices";
 
 const Login = ({ isOpen, setIsOpen }) => {
+  const dispatch=useDispatch()
   const { register, handleSubmit } = useForm();
   const navigate=useNavigate()
+
   const loginUser = async(data) => {
     const response=await authService.loginUser(data)
-    if(response.status===200){
-      setIsOpen(false)
-      navigate('/')
+    const userdata={
+      _id:response.message.loggedInUser._id,
+      email:response.message.loggedInUser.email
     }
+    if(response){
+      dispatch(login(userdata))
+    }
+  setIsOpen(false)
+   navigate("/")
   };
   return (
     <div>
@@ -73,6 +82,7 @@ const Login = ({ isOpen, setIsOpen }) => {
               >
                 Log in
               </Button>
+             
             </DialogFooter>
           </form>
         </DialogContent>
