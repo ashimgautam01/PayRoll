@@ -7,7 +7,7 @@ const MONGO_URL=process.env.MONGO_URL
 const connectDB=async()=>{
     try {
         mongoose.connect(MONGO_URL,{
-            dbName:"mini-Garden",
+            dbName:"Our_Metro",
         })
         console.log("Connected to database");
     } catch (error) {

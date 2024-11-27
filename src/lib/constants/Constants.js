@@ -1,22 +1,22 @@
 export const features=[
   {
-    "title": "Submit Complaints Easily",
+    "title": "Manage Employee Payroll",
     "imagePath": "https://img.freepik.com/free-vector/add-files-concept-illustration_114360-471.jpg?t=st=1732635627~exp=1732639227~hmac=2617cb1dce1427d535c9bb19fe601ce0aee53ab7fffd7cc16646556a2b736c9f&w=740",
     "imageAlt": "Person submitting a complaint online"
   },
   {
-    "title": "Track Complaint Status",
-    "imagePath": "https://img.freepik.com/free-vector/online-tracking-service-abstract-concept_335657-3875.jpg",
+    "title": "Generate Salary Reports",
+    "imagePath": "https://img.freepik.com/free-vector/receipt-bill-isometric-set-isolated-icons-with-paper-reel-contactless-payment-devices-with-shadows-vector-illustration_1284-73767.jpg?t=st=1732702329~exp=1732705929~hmac=4ad3419812b301eadc1d4607f4bdf320c222ebcc6fe70184f5dfa4ee5eed39fe&w=740",
     "imageAlt": "Dashboard showing complaint status"
   },
   {
-    "title": "Upload Evidence",
+    "title": "Track Employee Attendance",
     "imagePath": "https://img.freepik.com/free-vector/cyber-attack-concept-illustration_114360-1996.jpg?t=st=1732635863~exp=1732639463~hmac=d42b121f94f1ef06c29054d1c0dab4033fce8a58d565e884bb676fc7e2bf7029&w=740",
     "imageAlt": "User uploading photo evidence"
   },
   {
-    "title": "Receive Timely Updates",
-    "imagePath": "https://img.freepik.com/free-vector/online-notification-concept-illustration_114360-595.jpg",
+    "title": "Automate Tax Calculations",
+    "imagePath": "https://img.freepik.com/free-photo/calculator-with-money-table_23-2147931209.jpg?t=st=1732702366~exp=1732705966~hmac=e8a164e3b0d3961b96beca7f22421cdb693eeef589aeff958658652b7b35444b&w=1060",
     "imageAlt": "Notification system illustration"
   },
   {
@@ -25,26 +25,27 @@ export const features=[
     "imageAlt": "Easy-to-use interface"
   }
 ]
+
 export const testimonials = [
   {
     rating: 5,
     content:
-      "This platform is a game-changer! Reporting issues in my community has never been easier. The response time from authorities has improved significantly.",
-    author: "Rahul Sharma",
+      "This payroll system has saved us so much time! It's incredibly easy to manage employee salaries and generate reports. A must-have for any business.",
+    author: "Ananya Gupta",
     location: "India",
   },
   {
     rating: 4,
     content:
-      "I love how simple it is to upload evidence and track the status of my complaints. It feels great to contribute to making my city better.",
-    author: "Sophia Lee",
+      "I appreciate how automated the tax calculations are. It simplifies payroll processing, and I no longer worry about making errors in tax deductions.",
+    author: "John Doe",
     location: "United States",
   },
   {
-    rating: 4,
+    rating: 5,
     content:
-      "The updates feature keeps me informed about the progress of my complaints. It’s satisfying to see real action being taken. Highly recommended!",
-    author: "Michael Brown",
+      "The employee management features are fantastic! From managing attendance to salary adjustments, everything is seamless and efficient.",
+    author: "Emma Wilson",
     location: "United Kingdom",
   }
 ];

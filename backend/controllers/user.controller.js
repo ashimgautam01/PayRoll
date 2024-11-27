@@ -1,8 +1,7 @@
-import { asyncHandler } from "../utils/asyncHandler.js";
-import { ApiError } from "../utils/ApiError.js";
+import  asyncHandler  from "../utils/asyncHandler.js";
+import  ApiError  from "../utils/ApiError.js";
 import User from "../models/userModel.js";
-import { ApiResponse } from "../utils/ApiResponse.js";
-import mongoose from "mongoose";
+import  ApiResponse from "../utils/ApiResponse.js";
 
 const generateAccessAndRefreshToken = async (userId) => {
   try {
@@ -67,6 +66,7 @@ const loginUser = asyncHandler(async (req, res) => {
   if (!isPasswordCorrect) {
     throw new ApiError(400, "Invalid credentials");
   }
+  
   const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
     user._id
   );
@@ -119,67 +119,9 @@ const getCurrentUser = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, req.user, "User found successfully"));
 });
-const getUserAllClassrooms = asyncHandler(async (req, res) => {
-  const userClassrooms = await User.aggregate([
-    {
-      $match: {
-        _id: new mongoose.Types.ObjectId(req.user?._id),
-      },
-    },
-    {
-      $lookup: {
-        from: "classrooms",
-        localField: "_id",
-        foreignField: "users",
-        as: "results",
-      },
-    },
-    {
-      $unwind: "$results",
-    },
-    {
-      $lookup: {
-        from: "users",
-        localField: "results.admin",
-        foreignField: "_id",
-        as: "results.admin",
-      },
-    },
-    {
-      $unwind: "$results.admin",
-    },
-    {
-      $project: {
-        "results._id": 1,
-        "results.name": 1,
-        "results.university": 1,
-        "results.faculty": 1,
-        "results.users": 1,
-        "results.resources": 1,
-        "results.code": 1,
-        "results.createdAt": 1,
-        "results.updatedAt": 1,
-        "results.__v": 1,
-        "results.admin.fullName": 1, // Only keeping fullName from admin details
-      },
-    },
-    {
-      $group: {
-        _id: "$_id",
-        results: { $push: "$results" },
-      },
-    },
-  ]);
-  return res
-    .status(200)
-    .json(
-      new ApiResponse(200, userClassrooms, "User classrooms found successfully")
-    );
-});
 export {
   registerUser,
   loginUser,
   logoutUser,
-  getCurrentUser,
-  getUserAllClassrooms,
+  getCurrentUser
 };
