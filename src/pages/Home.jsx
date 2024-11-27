@@ -10,7 +10,7 @@ const Home = () => {
     <div>
       <div className="min-h-screen bg-white">
         <Navbar />
-        <section className="py-20 text-center px-4">
+        <section className="py-20 text-center px-4 bg-gradient-to-br from-pink-50 to bg-green-50">
           <div className="max-w-7xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 md:m-10">
               Simplifying Employee Payroll Management
@@ -25,7 +25,7 @@ const Home = () => {
             </p>
             <Button
               size="lg"
-              className="bg-[#00FF66] hover:bg-[#00FF66]/90 text-black"
+              className="bg-[#00FF66] hover:bg-[#00FF80] hover:scale-105 text-black"
             >
               Get Started
             </Button>
@@ -47,7 +47,9 @@ const Home = () => {
           </div>
         </section>
       </div>
+      <div className="text-center">
       <TestimonialsSection />
+      </div>
     </div>
   );
 };

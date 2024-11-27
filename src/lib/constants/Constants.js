@@ -49,3 +49,6 @@ export const testimonials = [
     location: "United Kingdom",
   }
 ];
+
+
+export const BASE_URL=import.meta.env.VITE_BASE_URL

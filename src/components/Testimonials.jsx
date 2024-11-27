@@ -21,7 +21,7 @@ function StarRating({ rating }) {
 
 function Testimonial({ rating, content, author, location }) {
   return (
-    <Card className="bg-white">
+    <Card className="bg-white shadow-md rounded-lg">
       <CardContent className="pt-6">
         <StarRating rating={rating} />
         <p className="text-base/relaxed mb-4">{content}</p>
@@ -35,24 +35,21 @@ function Testimonial({ rating, content, author, location }) {
 
 const TestimonialsSection = () => {
   return (
-    <section className="py-20">
-      <div className="container ">
-        <div className="text-center mb-12">
+    <section className="py-20 bg-teal-50">
+      <div className="container mx-auto text-center">
+        <div className="mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Users love the ease of use and functionality
           </h2>
           <div className="flex items-center justify-center gap-2">
-            <div className="">
             <p className="text-xl">4.8 Based on over 900 user reviews in</p>
             <span className="font-semibold">G2 </span>
             <span>and</span>
-            
             <span className="font-semibold"> Trustpilot</span>
-          
-          </div>
           </div>
         </div>
-        <div className="grid md:grid-cols-3 gap-6 ml-10 mr-10">
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-auto px-4 md:px-10">
           {testimonials.map((testimonial, index) => (
             <Testimonial key={index} {...testimonial} />
           ))}
