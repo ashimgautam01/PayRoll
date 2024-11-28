@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { login, logout } from './store/authSlice'
 import  Dashboard  from './pages/Dashboard'
 import Employee from './pages/Employee'
-
+import ProfilePage from './pages/Profile'
 function App() {
   const dispatch=useDispatch()
   console.log(useSelector((state)=>state.auth));
@@ -32,6 +32,7 @@ function App() {
         <Route path='/signup' element={<SignUp/>}/>
         <Route path='/dashboard' element={<Dashboard/>}/>
         <Route path='/employees' element={<Employee/>}/>
+        <Route path='/profile' element={<ProfilePage/>}/>
     </Routes>
     </BrowserRouter>
     </>
