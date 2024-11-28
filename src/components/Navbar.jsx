@@ -18,7 +18,6 @@ const Navbar = () => {
   const authStatus=useSelector((status)=>status.auth.status)
   const dispatch=useDispatch()
   const [isOpen, setIsOpen] = useState(false);
-  const handleClose = () => setIsOpen(false);
   const handleOpen = () => setIsOpen(true);
   const handleLogOut=()=>{
     dispatch(logout())
