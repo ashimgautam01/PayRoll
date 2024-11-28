@@ -24,16 +24,12 @@ const userProfileSchema = new Schema(
       type: String,
       trim: true,
     },
-    metro: {
-      type: String,
-      trim: true,
-    },
-    issues: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "Issue",
-      },
-    ],
+   role:{
+    type:String
+   },
+   bio:{
+  type:String
+   }
   },
   {
     timestamps: true,

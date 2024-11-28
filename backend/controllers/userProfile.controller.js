@@ -7,9 +7,9 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 
 const addProfile=asyncHandler(async(req,res)=>{
-    const { phone,gender,address,metro}=req.body
+    const { phone,gender,address,role,bio}=req.body
 
-    if(!(  phone || gender  ||address  || metro)){
+    if(!(  phone || gender  ||address  || role)){
         throw  new ApiError(400,"All fields are required")
     }
     const filepath=req.files?.profile?.[0].path
@@ -34,7 +34,8 @@ const addProfile=asyncHandler(async(req,res)=>{
         gender,
         profile:profile.secure_url,
         address,
-        metro
+        role,
+        bio
     })
     console.log(newprofile);
     res

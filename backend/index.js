@@ -23,11 +23,14 @@ connectDB()
 // routes import
 import userRouter from './routes/user.routes.js'
 import userProfileRouter from './routes/userProfile.routes.js'
-
+import companyRouter from './routes/company.routes.js'
+import employeeRouter from './routes/employee.routes.js'
 
 app.use(express.urlencoded({ extended: true })); 
 app.use('/api/v1/users',userRouter)
 app.use('/api/v1/profile',userProfileRouter)
+app.use('/api/v1/company',companyRouter)
+app.use('/api/v1/employee',employeeRouter)
 
 
 app.get('/', (req, res) => res.send('Server is running'));
