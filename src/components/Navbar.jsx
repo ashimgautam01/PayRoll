@@ -83,7 +83,7 @@ const Navbar = () => {
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem><User/> <Link to={'/profile'}>Profile</Link></DropdownMenuItem>
-                    <DropdownMenuItem><Building2/>Your Companies</DropdownMenuItem>
+                    <DropdownMenuItem><Building2/><Link to={'/addcompany'}>Add Companies</Link></DropdownMenuItem>
                     <DropdownMenuItem><HelpCircle/>Help</DropdownMenuItem>
                     <DropdownMenuItem><LogOutIcon className="mr-2 h-4 w-4" aria-hidden="true" /><div onClick={handleLogOut}>Logout</div></DropdownMenuItem>
                   </DropdownMenuContent>

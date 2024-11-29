@@ -9,6 +9,7 @@ import { login, logout } from './store/authSlice'
 import  Dashboard  from './pages/Dashboard'
 import Employee from './pages/Employee'
 import ProfilePage from './pages/Profile'
+import AddCompany from './pages/AddCompany'
 function App() {
   const dispatch=useDispatch()
   console.log(useSelector((state)=>state.auth));
@@ -33,6 +34,7 @@ function App() {
         <Route path='/dashboard' element={<Dashboard/>}/>
         <Route path='/employees' element={<Employee/>}/>
         <Route path='/profile' element={<ProfilePage/>}/>
+        <Route path='/addcompany' element={<AddCompany/>}/>
     </Routes>
     </BrowserRouter>
     </>

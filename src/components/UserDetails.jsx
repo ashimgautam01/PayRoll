@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "./ui/button";
@@ -26,7 +26,6 @@ const UserDetails = ({ user }) => {
     showModal(false);
   };
 
-
   return (
     <div>
       <Card className="bg-white shadow-lg">
@@ -34,7 +33,7 @@ const UserDetails = ({ user }) => {
             <div className="font-bold text-xl text-teal-800 mb-2">User Details</div>
         </CardHeader>
         <CardContent>
-          <div className="flex justify-center space-x-44">
+          <div className="flex justify-center lg:space-x-44">
             <div>
         {user ? (
             <>
@@ -74,7 +73,7 @@ const UserDetails = ({ user }) => {
             <div className="text-center h-36 md:p-10">
               <div className="text-gray-600 italic text-lg -mt-5 lg:-mt-10">
                 Your profile is not created please first create your
-                profile.......
+                profile.......  
               </div>
               <Button
                 onClick={() => showModal(true)}
@@ -87,10 +86,8 @@ const UserDetails = ({ user }) => {
           </div>
           </div>
         </CardContent>
-        
       </Card>
       
-      {/* for Creating profile */}
       <Dialog open={modal} onOpenChange={showModal}>
         <DialogContent>
           <DialogTitle className="text-center">Add Details</DialogTitle>

@@ -2,6 +2,7 @@ import Company from "../models/company.Model.js";
 import asyncHandler from "../utils/AsyncHandler.js";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
+import mongoose from "mongoose";
 
 const createCompany = asyncHandler(async (req, res) => {
   const {
@@ -49,10 +50,12 @@ const createCompany = asyncHandler(async (req, res) => {
 });
 
 const getUserCompany=asyncHandler(async(req,res)=>{
-    const id=req.user._id
-    const company=await Company.findOne({user:id})
-    console.log(company);
-    if(!company){
+    const company=await Company.aggregate([
+      {
+        $match:{user:new mongoose.Types.ObjectId(req.user._id)}
+      }
+    ])
+    if(company.length<0){
         throw new ApiError(400,"NO company found")
     }
     res.status(200).json(
