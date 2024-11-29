@@ -26,14 +26,13 @@ const SignUp = () => {
           />
         </div>
 
-        {/* Sign Up Form */}
         <Card className="w-full sm:w-96 bg-white shadow-lg rounded-lg p-6">
           <CardHeader>
             <CardTitle className="text-3xl font-semibold text-center text-gray-700">Create an Account</CardTitle>
           </CardHeader>
           <CardContent>
             <form className="space-y-6" onSubmit={handleSubmit(create)}>
-              {/* Full Name */}
+        
               <div>
                 <Label htmlFor="name" className="text-lg text-gray-600">Full Name</Label>
                 <Input 
@@ -49,7 +48,6 @@ const SignUp = () => {
                 />
               </div>
 
-              {/* Email */}
               <div>
                 <Label htmlFor="email" className="text-lg text-gray-600">Email Address</Label>
                 <Input 
@@ -63,7 +61,6 @@ const SignUp = () => {
                 />
               </div>
 
-              {/* Password */}
               <div>
                 <Label htmlFor="password" className="text-lg text-gray-600">Password</Label>
                 <Input 

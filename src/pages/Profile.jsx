@@ -1,16 +1,11 @@
+import {  useEffect, useState } from "react";
 import CompanyDetails from "../components/CompanyDetails";
 import Navbar from "../components/Navbar";
+import { Button } from "../components/ui/button";
 import UserDetails from "../components/UserDetails";
+import profileServices from "../services/profileServices";
 
-const mockUserData = {
-  name: "Jane Doe",
-  email: "jane.doe@example.com",
-  avatar: "/placeholder.svg?height=100&width=100",
-  role: "Founder & CEO",
-  location: "San Francisco, CA",
-  bio: "Passionate entrepreneur with a focus on sustainable technology solutions.",
-};
-
+const mockUserData=null
 const mockCompanyData = [
   {
     name: "EcoTech Innovations",
@@ -89,20 +84,40 @@ const mockCompanyData = [
   },
 ];
 const ProfilePage = () => {
+  const [userprofile,setUserprofile]=useState([])
+  const [loading, setLoading] = useState(true);
+
+  useEffect(()=>{
+    const fetchUser=async()=>{
+      setLoading(true)
+      const response=await profileServices.getUserProfile()
+      setUserprofile(response[0])
+      console.log(response[0]);
+      setLoading(false)
+    }
+    fetchUser()
+  },[])
+
   return (
     <div>
       <Navbar />
       <div className="min-h-screen bg-teal-50 flex flex-col py-10">
         <main className="w-full flex flex-col items-center gap-y-6">
-          {/* User Details Section */}
           <div className="w-full max-w-4xl text-center px-4 sm:px-6 lg:px-8">
-            <UserDetails user={mockUserData} />
+          {loading ? (
+              <div>Loading...</div>  
+            ) : (
+              <UserDetails user={userprofile} />
+            )}
           </div>
-
-          {/* Company Details Section */}
+          {mockUserData ?
           <div className="w-full px-4 sm:px-6 lg:px-8">
             <CompanyDetails company={mockCompanyData} />
           </div>
+          :
+          <></>
+          }
+
         </main>
       </div>
     </div>
@@ -110,4 +125,3 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
-
