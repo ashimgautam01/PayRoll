@@ -14,6 +14,8 @@ import { useForm } from "react-hook-form";
 import profileServices from "../services/profileServices";
 import { Loader } from "lucide-react";
 
+
+
 const UserDetails = ({ user }) => {
   const [modal, showModal] = useState(false);
   const [loading, Setloading] = useState(false);
@@ -26,68 +28,73 @@ const UserDetails = ({ user }) => {
     showModal(false);
   };
 
+  const userProfile = user?.User_Profile?.[0];
+
   return (
     <div>
       <Card className="bg-white shadow-lg">
         <CardHeader className="text-center">
-            <div className="font-bold text-xl text-teal-800 mb-2">User Details</div>
+          <div className="font-bold text-xl text-teal-800 mb-2">User Details</div>
         </CardHeader>
         <CardContent>
           <div className="flex justify-center lg:space-x-44">
             <div>
-        {user ? (
-            <>
-              <Avatar className="w-36 h-36 mx-auto mb-4">
-                <AvatarImage src={user.User_Profile[0].profile} alt={user.name} />
-                <AvatarFallback></AvatarFallback>
-              </Avatar>
-              <CardTitle className="text-2xl font-bold text-teal-800">
-                {user.fullName}
-              </CardTitle>
-            </>
-          ) : (
-            <CardTitle></CardTitle>
-          )}
-          </div>
-          <div>
-          {user ? (
-            <div className="space-y-4">
-              <div>
-                <p className="text-sm font-medium text-teal-600">Email</p>
-                <p className="text-sm text-gray-600">{user.email}</p>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-teal-600">Role</p>
-                <p className="text-sm text-gray-600">{user.User_Profile[0].role}</p>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-teal-600">Location</p>
-                <p className="text-sm text-gray-600">{user.User_Profile[0].address}</p>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-teal-600">Bio</p>
-                <p className="text-sm text-gray-600">{user.User_Profile[0].bio}</p>
-              </div>
+              {userProfile ? (
+                <>
+                  <Avatar className="w-36 h-36 mx-auto mb-4">
+                    <AvatarImage
+                      src={userProfile.profile}
+                      alt={user.fullName}
+                    />
+                    <AvatarFallback></AvatarFallback>
+                  </Avatar>
+                  <CardTitle className="text-2xl font-bold text-teal-800">
+                    {user.fullName}
+                  </CardTitle>
+                </>
+              ) : (
+                <CardTitle></CardTitle>
+              )}
             </div>
-          ) : (
-            <div className="text-center h-36 md:p-10">
-              <div className="text-gray-600 italic text-lg -mt-5 lg:-mt-10">
-                Your profile is not created please first create your
-                profile.......  
-              </div>
-              <Button
-                onClick={() => showModal(true)}
-                className="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 mt-5 lg:mt-10"
-              >
-                Add Details
-              </Button>
+            <div>
+              {userProfile ? (
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-sm font-medium text-teal-600">Email</p>
+                    <p className="text-sm text-gray-600">{user.email}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-teal-600">Role</p>
+                    <p className="text-sm text-gray-600">{userProfile.role}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-teal-600">Location</p>
+                    <p className="text-sm text-gray-600">{userProfile.address}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-teal-600">Bio</p>
+                    <p className="text-sm text-gray-600">{userProfile.bio}</p>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center h-36 md:p-10">
+                  <div className="text-gray-600 italic text-lg -mt-5 lg:-mt-10">
+                    Your profile is not created. Please first create your
+                    profile.......
+                  </div>
+                  <Button
+                    onClick={() => showModal(true)}
+                    className="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 mt-5 lg:mt-10"
+                  >
+                    Add Details
+                  </Button>
+                </div>
+              )}
             </div>
-          )}
-          </div>
           </div>
         </CardContent>
       </Card>
-      
+
       <Dialog open={modal} onOpenChange={showModal}>
         <DialogContent>
           <DialogTitle className="text-center">Add Details</DialogTitle>
@@ -126,7 +133,7 @@ const UserDetails = ({ user }) => {
               <select
                 name="gender"
                 {...register("gender")}
-                className="w-full border border-solid border-gray-400 rounded mt-1 "
+                className="w-full border border-solid border-gray-400 rounded mt-1"
                 required
               >
                 <option value="" disabled>

@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from 'framer-motion';
-import { Building2Icon, Calendar, FactoryIcon, Globe, PhoneCall } from 'lucide-react';
+import { Building2Icon, Calendar, FactoryIcon, Globe,  Link2,  PhoneCall } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button } from './ui/button';
+import { useDispatch, useSelector } from 'react-redux';
+import { getcompany } from '../store/companySlice';
+
 
 const CompanyDetails = ({ company }) => {
-  
+    const dispatch=useDispatch()
+    const navigate=useNavigate()
+  const show=(item)=>{
+    console.log(item);
+    const company={
+        company_id:item._id
+    }
+    dispatch(getcompany(company))
+    navigate('/dashboard')
+  }
     return (
       
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 lg:m-16">
@@ -82,13 +96,15 @@ const CompanyDetails = ({ company }) => {
                             )}
                         </CardContent>
                         
-                        <div className="mt-4">
-                            <a
-                                href={`/company/${item._id}`} 
-                                className="bg-teal-600 text-white py-2 px-4 rounded-lg text-center w-full block hover:bg-teal-700 transition duration-300"
+                        <div className="mt-4 flex justify-center">
+                           
+                            <Button
+                                // to={`/dashboard/${item._id}`} 
+                                onClick={()=>show(item)}
+                                className=" bg-teal-600 text-white py-2 px-4 rounded-lg text-center w-40 block hover:bg-teal-700 transition duration-300"
                             >
                                 View
-                            </a>
+                            </Button>
                         </div>
                     </Card>
                 </motion.div>

@@ -16,7 +16,6 @@ function App() {
  useEffect(()=>{
   const fetchUser=async()=>{
     const response=await authService.getUser();
-    console.log(response);
     if(response.data.statusCode==200){
       dispatch(login(response.data.message))
     }else{

@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Employee from "../models/employees.Model.js";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
@@ -58,4 +59,32 @@ const registerEmployee = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, "Employee created successfully", emp));
 });
 
-export { registerEmployee };
+const getEmployeeDetails=asyncHandler(async(req,res)=>{
+  const company=req.params.id
+const employee=await Employee.aggregate([
+  {
+    $match:{company:new mongoose.Types.ObjectId(company)}
+  },
+  {
+    $project:{
+      emp_id:1,
+      profile:1,
+      fullname:1,
+      email:1,
+      department:1
+    }
+  }
+])
+  if(employee.length<0){
+    throw new ApiError(400,"No employee found")
+  }
+  res.status(200).json(
+    new ApiResponse(
+      200,
+      "employees found",
+      employee
+    )
+  )
+})
+
+export { registerEmployee,getEmployeeDetails };

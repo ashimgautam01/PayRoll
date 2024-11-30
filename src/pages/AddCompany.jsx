@@ -149,7 +149,7 @@ const AddCompany = () => {
                   <label className="block text-teal-700 font-medium mb-1">Annual Revenue</label>
                   <div className="flex items-center space-x-4">
                     <DollarSign className="text-teal-600" />
-                    <Input type="number" placeholder="Enter revenueg in format eg: 1 million USD" className="w-full" 
+                    <Input type="number" placeholder="Enter revenueg in format eg: a1 million USD" className="w-full" 
                     {...register("revenue")}
                     required
                     />

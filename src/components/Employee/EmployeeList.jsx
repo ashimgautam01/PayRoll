@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -10,68 +10,13 @@ import {
 import { Button } from "../ui/button";
 import { Edit, Eye, Trash2 } from "lucide-react";
 import EmployeeCard from "./EmployeeCard";
-
-const initialEmployees = [
-  {
-    id: "1",
-    name: "John Doe",
-    email: "john@example.com",
-    department: "Engineering",
-    profileImage: "https://img.freepik.com/free-photo/young-attractive-guy_144627-5969.jpg?t=st=1732800173~exp=1732803773~hmac=942e1cd96f8237fdb56cd1bdc9807b1b1eea1e78ff70d82728350c4033569590&w=1060",
-    empId: "EMP001",
-    salary: 75000,
-    joinedDate: "2020-03-15",
-    dob: "1985-07-22",
-    maritalStatus: "Married",
-    salaryUpdateDate: "2023-01-01",
-    phone: "+1 (555) 123-4567",
-    address: "123 Main St, Anytown, AN 12345",
-    education: "B.S. in Computer Science",
-  },
-  {
-    id: "2",
-    name: "Jane Smith",
-    email: "jane@example.com",
-    department: "Marketing",
-    profileImage: "/placeholder.svg?height=80&width=80",
-    empId: "EMP002",
-    salary: 70000,
-    joinedDate: "2019-11-01",
-    dob: "1990-03-15",
-    maritalStatus: "Single",
-    salaryUpdateDate: "2023-01-01",
-    phone: "+1 (555) 987-6543",
-    address: "456 Elm St, Othertown, OT 67890",
-    education: "M.A. in Marketing",
-  },
-  {
-    id: "3",
-    name: "Bob Johnson",
-    email: "bob@example.com",
-    department: "HR",
-    profileImage: "/placeholder.svg?height=80&width=80",
-    empId: "EMP003",
-    salary: 65000,
-    joinedDate: "2021-06-01",
-    dob: "1988-11-30",
-    maritalStatus: "Divorced",
-    salaryUpdateDate: "2023-01-01",
-    phone: "+1 (555) 246-8135",
-    address: "789 Oak St, Somewhere, SW 13579",
-    education: "B.A. in Human Resources",
-  },
-];
+import employeeServices from "../../services/employees.services";
+import { useSelector } from "react-redux";
 
 const EmployeeList = ({ searchTerm }) => {
   const [viewModel, setViewModel] = useState(false);
-  const [selectedEmployee, setSelectedEmployee] = useState(initialEmployees);
-  const [employees, setEmployees] = useState(initialEmployees);
-  const filteredEmployees = employees.filter(
-    (employee) =>
-      employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.department.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const [selectedEmployee, setSelectedEmployee] = useState();
+  const [employees, setEmployees] = useState([]);
 
   const handleDeleteEmployee = (id) => {
     setEmployees(employees.filter((employee) => employee.id !== id));
@@ -86,6 +31,16 @@ const EmployeeList = ({ searchTerm }) => {
     setViewModel(false);
     setSelectedEmployee(null);
   };
+
+  const company_id=useSelector((state)=>state.company.data.company_id)
+  useEffect(()=>{
+    const fetchEmployees=async()=>{
+      const response=await employeeServices.getEmployees({company_id})
+      console.log(response.data);
+      setEmployees(response.data)
+    }
+    fetchEmployees()
+  },[])
 
   return (
     <div>
@@ -102,18 +57,18 @@ const EmployeeList = ({ searchTerm }) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredEmployees.map((employee, index) => (
+          {employees.map((employee, index) => (
             <TableRow key={employee.id} className="hover:bg-teal-100">
               <TableCell>{index + 1}</TableCell>
-              <TableCell>{employee.empId}</TableCell>
+              <TableCell>{employee.emp_id}</TableCell>
               <TableCell>
                 <img
-                  src={employee.profileImage || "/default-avatar.png"}
-                  alt={employee.name}
+                  src={employee.profile || "/default-avatar.png"}
+                  alt={employee.fullname}
                   className="h-10 w-10 rounded-full object-cover"
                 />
               </TableCell>
-              <TableCell>{employee.name}</TableCell>
+              <TableCell>{employee.fullname}</TableCell>
               <TableCell>{employee.email}</TableCell>
               <TableCell>{employee.department}</TableCell>
               <TableCell>
