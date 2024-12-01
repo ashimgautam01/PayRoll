@@ -1,6 +1,6 @@
 import AdminSidebar from "../components/Sidebar";
 import AdminHeader from "../components/AdminHeader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -8,61 +8,22 @@ import { Input } from "@/components/ui/input";
 import { Users, UserPlus, Edit, Trash2, Search, Eye } from "lucide-react";
 import AddEmployee from "../components/Employee/AddEmployee";
 import EmployeeList from "../components/Employee/EmployeeList";
+import employeeServices from "../services/employees.services";
 
-const initialEmployees = [
-    {
-      id: "1",
-      name: "John Doe",
-      email: "john@example.com",
-      department: "Engineering",
-      profileImage: "/placeholder.svg?height=80&width=80",
-      empId: "EMP001",
-      salary: 75000,
-      joinedDate: "2020-03-15",
-      dob: "1985-07-22",
-      maritalStatus: "Married",
-      salaryUpdateDate: "2023-01-01",
-      phone: "+1 (555) 123-4567",
-      address: "123 Main St, Anytown, AN 12345",
-      education: "B.S. in Computer Science",
-    },
-    {
-      id: "2",
-      name: "Jane Smith",
-      email: "jane@example.com",
-      department: "Marketing",
-      profileImage: "/placeholder.svg?height=80&width=80",
-      empId: "EMP002",
-      salary: 70000,
-      joinedDate: "2019-11-01",
-      dob: "1990-03-15",
-      maritalStatus: "Single",
-      salaryUpdateDate: "2023-01-01",
-      phone: "+1 (555) 987-6543",
-      address: "456 Elm St, Othertown, OT 67890",
-      education: "M.A. in Marketing",
-    },
-    {
-      id: "3",
-      name: "Bob Johnson",
-      email: "bob@example.com",
-      department: "HR",
-      profileImage: "/placeholder.svg?height=80&width=80",
-      empId: "EMP003",
-      salary: 65000,
-      joinedDate: "2021-06-01",
-      dob: "1988-11-30",
-      maritalStatus: "Divorced",
-      salaryUpdateDate: "2023-01-01",
-      phone: "+1 (555) 246-8135",
-      address: "789 Oak St, Somewhere, SW 13579",
-      education: "B.A. in Human Resources",
-    },
-  ]
 const Employee = () => {
-  const [employees, setEmployees] = useState(initialEmployees);
+  const [employees, setEmployees] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const company=sessionStorage.getItem("company")
+  const company_id=JSON.parse(company).company_id
+  console.log(company_id);
+  useEffect(()=>{
+    const fetchEmployees=async()=>{
+      const response=await employeeServices.getEmployees({company_id})
+      setEmployees(response.data)
+    }
+    fetchEmployees()
+  },[])
   return (
     <div>
       <div className="flex">
@@ -89,7 +50,7 @@ const Employee = () => {
 
             <AddEmployee/>
             </div>
-            <EmployeeList searchTerm={searchTerm}/>
+            <EmployeeList employees={employees}/>
           </div>
         </div>
       </div>

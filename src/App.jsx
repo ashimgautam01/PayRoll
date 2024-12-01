@@ -10,9 +10,11 @@ import  Dashboard  from './pages/Dashboard'
 import Employee from './pages/Employee'
 import ProfilePage from './pages/Profile'
 import AddCompany from './pages/AddCompany'
+import Salary from './pages/Salary'
+import Leave from './pages/Leave'
+
 function App() {
   const dispatch=useDispatch()
-  console.log(useSelector((state)=>state.auth));
  useEffect(()=>{
   const fetchUser=async()=>{
     const response=await authService.getUser();
@@ -34,6 +36,8 @@ function App() {
         <Route path='/employees' element={<Employee/>}/>
         <Route path='/profile' element={<ProfilePage/>}/>
         <Route path='/addcompany' element={<AddCompany/>}/>
+        <Route path='/salary' element={<Salary/>}/>
+        <Route path='/leaves' element={<Leave/>}/>
     </Routes>
     </BrowserRouter>
     </>

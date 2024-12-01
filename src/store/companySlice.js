@@ -12,6 +12,7 @@ const companySlicer=createSlice({
         getcompany:(state,action)=>{
             state.status=true,
             state.data=action.payload
+            sessionStorage.setItem("company",JSON.stringify(action.payload))
         }
     }
 })

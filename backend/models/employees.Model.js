@@ -71,7 +71,7 @@ const EmployeeSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["active", "inactive", "on-leave"],
+      enum: ["active","on-leave"],
       default: "active", 
     },
     gender: {

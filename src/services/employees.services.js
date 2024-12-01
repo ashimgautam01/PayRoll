@@ -43,6 +43,18 @@ class EmployeeServices{
             throw error
         }
     }
+
+    async getSingleEmployee({employee}){
+        try {
+            console.log();
+            const response=await axios.get(
+                `${BASE_URL}/api/v1/employee/getsingle/${employee}`
+            )
+            return response.data[0]
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 const employeeServices=new EmployeeServices()

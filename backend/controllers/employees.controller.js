@@ -64,15 +64,6 @@ const getEmployeeDetails=asyncHandler(async(req,res)=>{
 const employee=await Employee.aggregate([
   {
     $match:{company:new mongoose.Types.ObjectId(company)}
-  },
-  {
-    $project:{
-      emp_id:1,
-      profile:1,
-      fullname:1,
-      email:1,
-      department:1
-    }
   }
 ])
   if(employee.length<0){
@@ -87,4 +78,15 @@ const employee=await Employee.aggregate([
   )
 })
 
-export { registerEmployee,getEmployeeDetails };
+const getSingle=asyncHandler(async(req,res)=>{
+  const emp_id=req.params.id
+  console.log(emp_id);
+  const user=await Employee.aggregate([
+    {
+      $match:{_id:new mongoose.Types.ObjectId(emp_id)}
+    }
+  ])
+  res.json(user)
+})
+
+export { registerEmployee,getEmployeeDetails,getSingle };

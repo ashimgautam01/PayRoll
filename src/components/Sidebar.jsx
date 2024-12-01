@@ -6,7 +6,8 @@ const AdminSidebar = () => {
   const navItems = [
     { title: "Dashboard", icon: Home, url: "/dashboard" },
     { title: "Employees", icon: Users, url: "/employees" },
-    { title: "Payroll", icon: DollarSign, url: "/payroll" },
+    { title: "Salary", icon: DollarSign, url: "/salary" },
+    { title: "Leaves", icon: Home, url: "/leaves" },
     { title: "Settings", icon: Settings, url: "s/ettings" },
     { title: "Logout", icon: LogOut, url: "/logout" },
   ];

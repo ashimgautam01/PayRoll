@@ -10,13 +10,10 @@ import {
 import { Button } from "../ui/button";
 import { Edit, Eye, Trash2 } from "lucide-react";
 import EmployeeCard from "./EmployeeCard";
-import employeeServices from "../../services/employees.services";
-import { useSelector } from "react-redux";
 
-const EmployeeList = ({ searchTerm }) => {
+const EmployeeList = ( {employees} ) => {
   const [viewModel, setViewModel] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState();
-  const [employees, setEmployees] = useState([]);
 
   const handleDeleteEmployee = (id) => {
     setEmployees(employees.filter((employee) => employee.id !== id));
@@ -32,28 +29,19 @@ const EmployeeList = ({ searchTerm }) => {
     setSelectedEmployee(null);
   };
 
-  const company_id=useSelector((state)=>state.company.data.company_id)
-  useEffect(()=>{
-    const fetchEmployees=async()=>{
-      const response=await employeeServices.getEmployees({company_id})
-      console.log(response.data);
-      setEmployees(response.data)
-    }
-    fetchEmployees()
-  },[])
 
   return (
     <div>
       <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Serial No.</TableHead>
-            <TableHead>Emp_id</TableHead>
-            <TableHead>Photo</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead>Department</TableHead>
-            <TableHead className="text-center">Actions</TableHead>
+        <TableHeader className="bg-teal-100 ">
+          <TableRow >
+            <TableHead className="text-teal-600 font-semibold">Serial No.</TableHead>
+            <TableHead className="text-teal-600 font-semibold">Emp_id</TableHead>
+            <TableHead className="text-teal-600 font-semibold">Photo</TableHead>
+            <TableHead className="text-teal-600 font-semibold">Name</TableHead>
+            <TableHead className="text-teal-600 font-semibold">Email</TableHead>
+            <TableHead className="text-teal-600 font-semibold">Department</TableHead>
+            <TableHead className="text-teal-600 font-semibold text-center">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
