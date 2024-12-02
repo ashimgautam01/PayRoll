@@ -93,7 +93,7 @@ const Salary = () => {
             <Table className="text-center ">
               <TableHeader className="bg-teal-100 ">
                 <TableRow>
-                  <TableHead className="cursor-pointer text-teal-800" onClick={() => handleSort('s_no')}>
+                  <TableHead className="s" onClick={() => handleSort('s_no')}>
                     S.No <SortIcon column="s_no" />
                   </TableHead>
                   <TableHead className="cursor-pointer text-teal-800" onClick={() => handleSort('emp_id')}>

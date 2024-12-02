@@ -26,6 +26,7 @@ import userProfileRouter from './routes/userProfile.routes.js'
 import companyRouter from './routes/company.routes.js'
 import employeeRouter from './routes/employee.routes.js'
 import salaryRouter from './routes/salary.routes.js'
+import leaveRouter from './routes/leave.routes.js'
 
 app.use(express.urlencoded({ extended: true })); 
 app.use('/api/v1/users',userRouter)
@@ -33,6 +34,7 @@ app.use('/api/v1/profile',userProfileRouter)
 app.use('/api/v1/company',companyRouter)
 app.use('/api/v1/employee',employeeRouter)
 app.use('/api/v1/salary',salaryRouter)
+app.use('/api/v1/leave',leaveRouter)
 
 app.get('/', (req, res) => res.send('Server is running'));
 

@@ -89,4 +89,31 @@ const getSingle=asyncHandler(async(req,res)=>{
   res.json(user)
 })
 
+const editEmployee=asyncHandler(async(req,res)=>{
+  const {
+    fullname,
+    email,
+    department,
+    address,
+    dob,
+    maritalStatus,
+    phone,
+    education,
+    joined,
+    gender,
+    ename,
+    ephone,
+  } = req.body;
+  const userid=req.params?.id
+  const employee=await Employee.findOne({_id:userid})
+  if(!employee){
+    throw new ApiError(400,"NO user found")
+  }
+  const updatedEmployee=await Employee.findOneAndUpdate({_id:userid},
+    {
+      $set:{fullname}
+    }
+  )
+})
+
 export { registerEmployee,getEmployeeDetails,getSingle };

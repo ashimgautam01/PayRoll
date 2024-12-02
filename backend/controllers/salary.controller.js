@@ -6,39 +6,29 @@ import Employee from "../models/employees.Model.js";
 import Salary from "../models/salary.Model.js";
 
 const addSalary = asyncHandler(async (req, res) => {
-  const { salary, allowance, bonus, deduction } = req.body;
+  const { month, salary, allowance, bonus, amount, reason } = req.body;
   const employee_id = req.params.id;
   const employee = await Employee.findOne({ _id: employee_id });
-  if (!employee) {
-    const createdSalary = await Salary.create({
-      employee: employee_id,
-      salary,
-      deduction,
-      bonus,
-      allowance,
-    });
-    res
-      .status(200)
-      .json(new ApiResponse(200, "Salary Added Successfully", createdSalary));
-  }
+
+  const createdSalary = await Salary.create({
+    employee: employee_id,
+    company: employee.company,
+    month,
+    salary,
+    deduction: [{ amount, reason }],
+    bonus,
+    allowance,
+  });
  
-  const createdSalary=await Salary.findOneAndUpdate({employee:employee_id},
-    {$set:{salary,allowance,bonus,deduction}},
-    {new:true}
-  )
-  if(!createdSalary){
-    throw new ApiError(400,"failed to update salary")
+  if (!createdSalary) {
+    throw new ApiError(400, "failed to update salary");
   }
-  res.status(200).json(
-    new ApiResponse(
-        200,
-        "Salary Updated Successfully",
-        createdSalary
-    )
-  )
+  res 
+    .status(200)
+    .json(new ApiResponse(200, "Salary Updated Successfully", createdSalary));
 });
 
-const getSalary = asyncHandler(async (req, res) => {
+const getSingleSalary = asyncHandler(async (req, res) => {
   const employee_id = req.params.id;
   const company = await Employee.aggregate([
     {
@@ -61,7 +51,36 @@ const getSalary = asyncHandler(async (req, res) => {
       },
     },
   ]);
-  res.json(company);
+  if (!company) {
+    throw new ApiError(400, "No salary found");
+  }
+  res.status(200).json(new ApiResponse(200, "Salary ", company));
 });
 
-export { addSalary, getSalary };
+const getAllEmployeeSalary=asyncHandler(async(req,res)=>{
+  const company=req.params.id
+  const salary=await Employee.aggregate([
+    {
+      $match:{company:new mongoose.Types.ObjectId(company)}
+    },
+    {
+      $lookup:{
+        from:"salaries",
+        localField:"_id",
+        foreignField:"employee",
+        as:"Salary"
+      }
+    },
+    {
+      $project:{
+        emp_id:1,
+        fullname:1,
+        Salary:1
+      }
+    }
+  ])
+  res.json(salary)
+})
+
+
+export { addSalary, getSingleSalary,getAllEmployeeSalary };
