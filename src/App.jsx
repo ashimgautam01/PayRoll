@@ -12,6 +12,8 @@ import ProfilePage from './pages/Profile'
 import AddCompany from './pages/AddCompany'
 import Salary from './pages/Salary'
 import Leave from './pages/Leave'
+import EmpLogin from './pages/EmpLogin'
+import EmployeeDashboard from './pages/EmployeeDashboard'
 
 function App() {
   const dispatch=useDispatch()
@@ -38,6 +40,8 @@ function App() {
         <Route path='/addcompany' element={<AddCompany/>}/>
         <Route path='/salary' element={<Salary/>}/>
         <Route path='/leaves' element={<Leave/>}/>
+        <Route path='/emplogin' element={<EmpLogin/>}/>
+        <Route path='/empdash' element={<EmployeeDashboard/>}/>
     </Routes>
     </BrowserRouter>
     </>
