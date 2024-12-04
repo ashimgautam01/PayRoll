@@ -19,7 +19,7 @@ const Salaryinfo = () => {
           <h3 className="text-lg font-semibold mb-4 text-teal-700">Salary Received Details</h3>
           <Table>
             <TableHeader>
-              <TableRow>
+              <TableRow className="bg-teal-300">
                 <TableHead>Date</TableHead>
                 <TableHead>Amount</TableHead>
                 <TableHead>Type</TableHead>
@@ -27,7 +27,7 @@ const Salaryinfo = () => {
             </TableHeader>
             <TableBody>
               {salaryData.paymentHistory.map((payment) => (
-                <TableRow key={payment.id}>
+                <TableRow key={payment.id} className="bg-purple-50 hover:bg-teal-100">
                   <TableCell>
                     <div className="flex items-center space-x-2">
                       <CalendarDays className="w-4 h-4 text-teal-600" />

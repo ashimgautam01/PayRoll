@@ -79,7 +79,7 @@ const Dashboard = () => {
         },
         salesEmployees: {
           label: "Sales Employees",
-          color: "blue", // Color for the sales employees line
+          color: "blue",
         },
       }}
       className="h-[300px] w-[500px]"
