@@ -41,7 +41,7 @@ const EmployeeDashboard = () => {
         </div>
       </div>
 
-      <div className="container mx-auto py-10 px-4 sm:px-6 lg:px-8 bg-teal-50 h-screen">
+      <div className=" mx-auto py-10 px-4 sm:px-6 lg:px-8 bg-teal-50 h-screen ">
         <Tabs defaultValue="details" className="space-y-4">
           <TabsList className="bg-teal-100 rounded-t-lg flex justify-around sm:justify-start w-4/12">
             <TabsTrigger

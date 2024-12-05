@@ -50,9 +50,9 @@ const registerEmployee = asyncHandler(async (req, res) => {
   });
 
   let emp = await Employee.findById(employee._id);
-  const { emp_id, password } = await emp.generateEmployeeID();
+  const { emp_id } = await emp.generateEmployeeID();
   emp.emp_id = emp_id;
-  emp.password = password;
+  emp.password = emp_id;
   await emp.save();
   res
     .status(200)
@@ -68,10 +68,10 @@ const employeeLogin = asyncHandler(async (req, res) => {
   if(!employee){
     throw new ApiError(400, "Invalid credentials");
   }
-  // need to change for password
-  if(employee.password!=password){
-    throw new ApiError(400,"Invalid credentials")
-  }
+    const checkedPassword=await employee.checkPassword(password)
+    if(!checkedPassword){
+      throw new ApiError(400,"invalid credentials")
+    }
   res.status(200).json(
     new ApiResponse(
       200,

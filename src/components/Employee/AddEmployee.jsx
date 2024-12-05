@@ -20,8 +20,10 @@ const AddEmployee = () => {
   const [model,Setmodel]=useState(false)
   const {register,handleSubmit}=useForm()
   
+  const company=sessionStorage.getItem("company")
+  const emp=JSON.parse(company)
+  const company_id=emp.company_id
   const addEmployee =async (data) => {
-    const company_id=useSelector((state)=>state.company.data.company_id)
   
    const response=await employeeServices.addEmployee({company_id,data})
    console.log(response);

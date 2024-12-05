@@ -55,6 +55,18 @@ class EmployeeServices{
             throw error
         }
     }
+
+    async employeeLogin({data}){
+        try {
+            const response=await axios.post(
+                `${BASE_URL}/api/v1/employee/login`,
+                data
+            )
+            return response.data.data
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 const employeeServices=new EmployeeServices()

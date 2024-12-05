@@ -1,5 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import crypto from 'crypto'
+import bcrypt from 'bcrypt'
+
 const EmployeeSchema = new Schema(
   {
     company:{
@@ -94,10 +96,21 @@ const EmployeeSchema = new Schema(
 );
 
 
+EmployeeSchema.pre("save",async function (next){
+  if(!this.isModified("password")){
+    return next()
+  }
+  this.password=await bcrypt.hash(this.password,10)
+  next();
+})
+
+EmployeeSchema.methods.checkPassword=async function(password){
+  return bcrypt.compare(password,this.password)
+}
+
 EmployeeSchema.methods.generateEmployeeID=function(){
-  const emp_id=  crypto.randomBytes(6).toString("hex").toUpperCase();
-  const password= crypto.randomBytes(5).toString("hex").toUpperCase();
- return {emp_id,password};
+  const emp_id=  crypto.randomBytes(3).toString("hex").toUpperCase();
+ return {emp_id};
 }
 
 const Employee = mongoose.model("Employee", EmployeeSchema);

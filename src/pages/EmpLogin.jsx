@@ -3,13 +3,19 @@ import { Button } from '../components/ui/button'
 import Navbar from '../components/Navbar';
 import {Input} from '../components/ui/input'
 import {Label} from '../components/ui/label'
+import { useForm } from 'react-hook-form';
+import employeeServices from '../services/employees.services';
+import { useNavigate } from 'react-router-dom';
 
 const EmpLogin = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-  
-    const handleLogin = () => {
-
+  const navigate=useNavigate()
+    const {register,handleSubmit}=useForm()
+    const empLogin = async(data) => {
+      const response=await employeeServices.employeeLogin({data})
+      console.log(response);
+     if(response){
+      navigate(`/empdash`)
+     }
     };
   
   return (
@@ -18,15 +24,15 @@ const EmpLogin = () => {
     <div className="min-h-screen flex items-center justify-center bg-teal-100 ">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm -mt-20">
         <h2 className="text-2xl font-semibold text-teal-600 text-center mb-6">Employee Login</h2>
-        <form onSubmit={handleLogin} className="space-y-6">
+        <form onSubmit={handleSubmit(empLogin)} className="space-y-6">
           <div>
             <label htmlFor="username" className="block text-teal-600 font-medium">Username</label>
             <div className="relative mt-2">
               <input
                 type="text"
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                id="emp_id"
+               {...register("emp_id")}
+               name='emp_id'
                 required
                 className="w-full p-3 border-2 border-teal-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                 placeholder="Enter your username"
@@ -43,8 +49,7 @@ const EmpLogin = () => {
               <Input
                 type="password"
                 id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+               {...register("password",{min:4})}
                 required
                 className="w-full p-3 border-2 border-teal-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                 placeholder="Enter your password"

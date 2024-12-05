@@ -10,7 +10,6 @@ import {
 import { Button } from "../ui/button";
 
 const EmployeeCard = ({ isOpen, onClose, employee }) => {
-  console.log(employee);
 
   return (
     <div>
