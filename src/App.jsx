@@ -14,6 +14,7 @@ import Leave from './pages/Leave'
 import EmpLogin from './pages/EmpLogin'
 import EmployeeDashboard from './pages/EmployeeDashboard'
 
+
 function App() {
   const dispatch=useDispatch()
  useEffect(()=>{
