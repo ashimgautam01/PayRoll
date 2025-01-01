@@ -13,7 +13,7 @@ const AdminSidebar = () => {
   ];
 
   return (
-    <div className="h-screen w-64 bg-gradient-to-b from-teal-400 to-teal-900 text-white flex flex-col shadow-lg">
+    <div className="min-h-min w-64 bg-gradient-to-b from-teal-400 to-teal-900 text-white flex flex-col shadow-lg">
       <div className="flex items-center justify-center h-20 bg-green-800 text-2xl font-semibold tracking-wide">
         Admin Panel
       </div>

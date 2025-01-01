@@ -10,7 +10,7 @@ const Home = () => {
     <div>
       <div className="min-h-screen bg-white">
         <Navbar />
-        <section className="py-20 text-center px-4 bg-gradient-to-br from-pink-50 to bg-green-50">
+        <section className="py-20 text-center px-4 bg-gradient-to-br from-pink-50 to bg-green-100">
           <div className="max-w-7xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 md:m-10">
               Simplifying Employee Payroll Management
