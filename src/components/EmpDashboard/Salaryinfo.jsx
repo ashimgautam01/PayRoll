@@ -1,6 +1,6 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { CalendarDays, DollarSign } from 'lucide-react'
-
+import { useEffect } from "react"
 const salaryData = {
   paymentHistory: [
     { id: 1, date: "2023-05-31", amount: 6250, type: "Monthly Salary" },
@@ -12,6 +12,8 @@ const salaryData = {
 }
 
 const Salaryinfo = () => {
+  
+
   return (
     <div className="px-4 py-8 max-w-7xl mx-auto">
       <div className="space-y-8">

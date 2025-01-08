@@ -10,7 +10,7 @@ const salarySchema = new Schema({
     ref: "Company",
   },
   month: {
-    type: Date,
+    type: String,
   },
   salary: {
     type: Number,

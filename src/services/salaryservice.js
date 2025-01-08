@@ -36,7 +36,7 @@ class SalaryService{
     async getAllSalary(id){
         try {
             const response=await axios.get(
-                `${BASE_URL}/api/v1/getall/${id}`,
+                `${BASE_URL}/api/v1/salary/getall/${id}`,
                 {withCredentials:true}
             )
             return response.data
