@@ -3,11 +3,6 @@ import { CalendarDays, DollarSign } from 'lucide-react'
 import { useEffect } from "react"
 const salaryData = {
   paymentHistory: [
-    { id: 1, date: "2023-05-31", amount: 6250, type: "Monthly Salary" },
-    { id: 2, date: "2023-04-30", amount: 6250, type: "Monthly Salary" },
-    { id: 3, date: "2023-03-31", amount: 6250, type: "Monthly Salary" },
-    { id: 4, date: "2023-02-28", amount: 6250, type: "Monthly Salary" },
-    { id: 5, date: "2023-01-31", amount: 6250, type: "Monthly Salary" },
   ],
 }
 
