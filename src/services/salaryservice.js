@@ -4,19 +4,17 @@ import axios from "axios";
 
 class SalaryService{
 
-    async addSalary(id,data){
+    async addSalary({id,data}){
         try {
             const response=await axios.post(
                 `${BASE_URL}/api/v1/salary/add/${id}`,
-                {
-                    data
-                },
+                data,
                 {withCredentials:true}
             )
             return response.data
         } catch (error) {
             console.log(error);
-            return error
+            return null
         }
     }
 
@@ -45,6 +43,8 @@ class SalaryService{
             return null
         }
     }
+
+
 
 }
 

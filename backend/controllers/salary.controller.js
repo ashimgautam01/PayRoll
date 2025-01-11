@@ -8,6 +8,7 @@ import Salary from "../models/salary.Model.js";
 const addSalary = asyncHandler(async (req, res) => {
   const { month, salary, allowance, bonus, amount, reason } = req.body;
   const employee_id = req.params.id;
+  console.log(employee_id);
   const employee = await Employee.findOne({ _id: employee_id });
 
   const createdSalary = await Salary.create({
@@ -75,7 +76,8 @@ const getAllEmployeeSalary=asyncHandler(async(req,res)=>{
       $project:{
         emp_id:1,
         fullname:1,
-        Salary:1
+        Salary:1,
+
       }
     }
   ])
