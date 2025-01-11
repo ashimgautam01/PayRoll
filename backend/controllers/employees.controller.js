@@ -4,6 +4,8 @@ import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import asyncHandler from "../utils/AsyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import { sendEmail } from "../utils/Email.js";
+import { generateEmployeeRegistration } from "../Emails/employee.js";
 
 const registerEmployee = asyncHandler(async (req, res) => {
   const {
@@ -50,9 +52,13 @@ const registerEmployee = asyncHandler(async (req, res) => {
   });
 
   let emp = await Employee.findById(employee._id);
-  const { emp_id } = await emp.generateEmployeeID();
+  const { emp_id,emp_pass } = await emp.generateEmployeeID();
   emp.emp_id = emp_id;
-  emp.password = emp_id;
+  emp.password = emp_pass;
+  const html = generateEmployeeRegistration(
+    "Our Company", fullname, email, department, address, dob, maritalStatus, phone, education, joined, emp_id, emp.password
+  );
+  const sendingEmail=await sendEmail(email,"Employee Registration",html)
   await emp.save();
   res
     .status(200)

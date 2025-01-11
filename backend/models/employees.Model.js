@@ -110,7 +110,8 @@ EmployeeSchema.methods.checkPassword=async function(password){
 
 EmployeeSchema.methods.generateEmployeeID=function(){
   const emp_id=  crypto.randomBytes(3).toString("hex").toUpperCase();
- return {emp_id};
+  const emp_pass=crypto.randomBytes(3).toString("hex").toLocaleLowerCase()
+ return {emp_id,emp_pass};
 }
 
 const Employee = mongoose.model("Employee", EmployeeSchema);
