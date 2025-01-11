@@ -9,6 +9,7 @@ class EmployeeServices{
             console.log(data);
             formdata.append("profile",data.profile[0])
             formdata.append("fullname",data.fullname)
+            formdata.append("phone",data.phone.trim())
             formdata.append("email",data.email)
             formdata.append("department",data.department)
             formdata.append("address",data.address)
@@ -16,7 +17,7 @@ class EmployeeServices{
             formdata.append("dob",data.dob)
             formdata.append("phone",data.phone)
             formdata.append("joined",data.joined)
-            formdata.append("education",formdata.education)
+            formdata.append("education",data.education)
             formdata.append("maritalStatus",data.maritalStatus)
             formdata.append("ename",data.ename)
             formdata.append("ephone",data.ephone)

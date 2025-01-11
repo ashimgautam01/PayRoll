@@ -42,15 +42,14 @@ const registerEmployee = asyncHandler(async (req, res) => {
     profile: profile.url,
     department,
     address,
+    phone:phone[0],
     dob,
     maritalStatus,
-    phone,
     education,
     joined,
     gender,
     emergencyContact: { ename, ephone },
   });
-
   let emp = await Employee.findById(employee._id);
   const { emp_id,emp_pass } = await emp.generateEmployeeID();
   emp.emp_id = emp_id;

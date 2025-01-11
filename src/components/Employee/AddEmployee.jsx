@@ -64,8 +64,6 @@ const AddEmployee = () => {
             required
           />
         </div>
-      </div>
-      <div className="grid gap-4">
         <div className="flex items-center gap-4">
           <Label htmlFor="name" className="w-32 text-right text-teal-900">
             Full Name
@@ -74,6 +72,20 @@ const AddEmployee = () => {
             id="name"
             placeholder="Enter full name"
            {...register("fullname")}
+            className="flex-1 border-teal-500"
+            required
+          />
+        </div>
+      </div>
+      <div className="grid gap-4">
+        <div className="flex items-center gap-4">
+          <Label htmlFor="name" className="w-32 text-right text-teal-900">
+           Mobile Number
+          </Label>
+          <Input
+            id="phone"
+            placeholder="Enter your mobile Number"
+           {...register("phone")}
             className="flex-1 border-teal-500"
             required
           />
