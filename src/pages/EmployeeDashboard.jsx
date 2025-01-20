@@ -65,7 +65,7 @@ const EmployeeDashboard = () => {
               <DollarSign className="w-4 h-5 text-teal-600" />
               <span className="hidden sm:inline">Salary Information</span>
             </TabsTrigger>
-          </TabsList>
+          </TabsList> 
 
           <TabsContent value="details">
             <Card className="shadow-lg bg-gray-100 mt-10">

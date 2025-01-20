@@ -77,7 +77,7 @@ const leaveApplications = [
     status: "Approved",
   },
 ];
-
+                                                                                                                                                                                                                                                                                                                              
 const Leave = () => {
   const [model, setModel] = useState(false);
   const [selectedApplication, setSelectedApplication] = useState(null);

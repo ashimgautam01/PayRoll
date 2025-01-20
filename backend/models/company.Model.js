@@ -67,6 +67,9 @@ const companySchema = new Schema(
           type: Number,
           min: 0,
         },
+        month:{
+          type:String
+        }
       },
     ],
   },

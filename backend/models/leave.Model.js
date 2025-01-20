@@ -8,6 +8,12 @@ const leaveSchema=new Schema({
     leaveType:{
         type:String,
     },
+    startDate:{
+        type:Date
+    },
+    endDate:{
+        type:Date
+    },
     status:{
         type:String,
         enum:["approved","rejected"]

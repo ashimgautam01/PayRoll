@@ -93,7 +93,7 @@ const Dashboard = () => {
           <Line
             type="monotone"
             dataKey="salary"
-            stroke="green"
+            stroke="green"                         
             strokeWidth={3}
             name="Salary"
           />
