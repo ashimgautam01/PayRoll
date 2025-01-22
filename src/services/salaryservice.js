@@ -21,7 +21,7 @@ class SalaryService{
     async getSingleSalary(id){
         try {
             const response=await axios.get(
-                `${BASE_URL}/api/v1/salary/get/${id}`,
+                `${BASE_URL}/api/v1/salary/getsalary/${id}`,
                 {withCredentials:true}
             )
             return response.data
