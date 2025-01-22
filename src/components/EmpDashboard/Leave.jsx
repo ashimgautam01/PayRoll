@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,47 +21,48 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { PlusCircle, Calendar, FileText } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { leaveService } from "../../services/leaveServices";
+import { useSelector } from "react-redux";
 
-const initialLeaveApplications = [
-  {
-    id: 1,
-    startDate: "2023-07-01",
-    endDate: "2023-07-05",
-    type: "Vacation",
-    status: "Approved",
-  },
-  {
-    id: 2,
-    startDate: "2023-08-15",
-    endDate: "2023-08-16",
-    type: "Sick Leave",
-    status: "Pending",
-  },
-];
+// const leaveApplications = [
+//   {
+//     id: 1,
+//     startDate: "2023-07-01",
+//     endDate: "2023-07-05",
+//     type: "Vacation",
+//     status: "Approved",
+//   },
+//   {
+//     id: 2,
+//     startDate: "2023-08-15",
+//     endDate: "2023-08-16",
+//     type: "Sick Leave",
+//     status: "Pending",
+//   },
+// ];
 
 const Leave = () => {
-  const [leaveApplications, setLeaveApplications] = useState(
-    initialLeaveApplications
-  );
-  const [newLeave, setNewLeave] = useState({
-    startDate: "",
-    endDate: "",
-    type: "",
-    reason: "",
-  });
+  const {register,handleSubmit,reset}=useForm()
+  const [leaveApplications,setLeaveapplications]=useState([])
+ const user=useSelector((state)=>state.auth.data.id)
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newApplication = {
-      id: leaveApplications.length + 1,
-      ...newLeave,
-      status: "Pending",
-    };
-    setLeaveApplications([...leaveApplications, newApplication]);
-    setNewLeave({ startDate: "", endDate: "", type: "", reason: "" });
+  const handleLeaveSubmit =async (data) => {
+    const response=await leaveService.applyLeave({user,data})
+    console.log(response);
+    getLeave()
+    reset()
     setIsDialogOpen(false);
   };
+  const getLeave=async()=>{
+    const response=await leaveService.getLeave({employee:user})
+    console.log(response.data.data);
+    setLeaveapplications(response.data.data)
+  }
+  useEffect(()=>{
+    getLeave()
+  },[])
 
   return (
     <div className="px-4 max-w-7xl mx-auto">
@@ -78,18 +79,22 @@ const Leave = () => {
         <Table>
           <TableHeader>
             <TableRow className="bg-teal-300 hover:bg-teal-400 ">
+              <TableHead>S.N</TableHead>
               <TableHead>Start Date</TableHead>
               <TableHead>End Date</TableHead>
               <TableHead>Type</TableHead>
+              <TableHead>Reason</TableHead>
               <TableHead>Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {leaveApplications.map((leave) => (
-              <TableRow key={leave.id} className="bg-pink-50 hover:bg-teal-100">
-                <TableCell>{leave.startDate}</TableCell>
-                <TableCell>{leave.endDate}</TableCell>
-                <TableCell>{leave.type}</TableCell>
+            {leaveApplications.map((leave,index) => (
+              <TableRow key={leave._id} className="bg-pink-50 hover:bg-teal-100">
+                <TableCell>{index+1}</TableCell>
+                <TableCell>{new Date(leave.startDate).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' })}</TableCell>
+                <TableCell>{new Date(leave.endDate).toLocaleDateString('en-GB',{ day:'numeric', month:'short', year:'numeric' })}</TableCell>
+                <TableCell>{leave.leaveType}</TableCell>
+                <TableCell>{leave.reason}</TableCell>
                 <TableCell>{leave.status}</TableCell>
               </TableRow>
             ))}
@@ -106,7 +111,7 @@ const Leave = () => {
                 Fill out the form below to submit a new leave request.
               </DialogDescription>
             </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit(handleLeaveSubmit)} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="startDate">Start Date</Label>
@@ -115,10 +120,7 @@ const Leave = () => {
                     <Input
                       id="startDate"
                       type="date"
-                      value={newLeave.startDate}
-                      onChange={(e) =>
-                        setNewLeave({ ...newLeave, startDate: e.target.value })
-                      }
+                      {...register('startDate')}
                       required
                     />
                   </div>
@@ -130,10 +132,7 @@ const Leave = () => {
                     <Input
                       id="endDate"
                       type="date"
-                      value={newLeave.endDate}
-                      onChange={(e) =>
-                        setNewLeave({ ...newLeave, endDate: e.target.value })
-                      }
+                      {...register('endDate')}
                       required
                     />
                   </div>
@@ -143,10 +142,7 @@ const Leave = () => {
                 <Label htmlFor="leaveType">Leave Type</Label>
                 <Input
                   id="leaveType"
-                  value={newLeave.type}
-                  onChange={(e) =>
-                    setNewLeave({ ...newLeave, type: e.target.value })
-                  }
+                  {...register('leaveType')}
                   required
                 />
               </div>
@@ -155,11 +151,7 @@ const Leave = () => {
                 <div className="flex items-start space-x-2">
                   <FileText className="w-4 h-4 text-teal-600 mt-3" />
                   <Textarea
-                    id="reason"
-                    value={newLeave.reason}
-                    onChange={(e) =>
-                      setNewLeave({ ...newLeave, reason: e.target.value })
-                    }
+                    id="reason"{...register('reason')}
                     required
                   />
                 </div>

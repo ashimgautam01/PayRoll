@@ -4,15 +4,16 @@ import ApiResponse from "../utils/ApiResponse.js";
 import asyncHandler from "../utils/AsyncHandler.js";
 
 const applyLeave=asyncHandler(async(req,res)=>{
-    const {employee,leaveType,startDate,endDate}=req.body
+    const {employee,data}=req.body
     if(!employee){
         throw new ApiError(400,"employee is required")
     }
     const newleave=await Leave.create({
         employee,
-        startDate,
-        endDate,
-        leaveType
+        startDate:data.startDate,
+        endDate:data.endDate,
+        reason:data.reason,
+        leaveType:data.leaveType
     })
     if(!newleave){
         throw new ApiError(401,"failed to create a leave")
@@ -27,8 +28,9 @@ const applyLeave=asyncHandler(async(req,res)=>{
 })
 
 const getLeave=asyncHandler(async(req,res)=>{
-    const employee=req.body
-    const leave=await Leave.find({employee:employee})
+    const {id}=req.params
+    console.log("boy",id);
+    const leave=await Leave.find({employee:id})
     if(!leave){
         throw new ApiError(400,"no leave found")
     }

@@ -61,7 +61,8 @@ class EmployeeServices{
         try {
             const response=await axios.post(
                 `${BASE_URL}/api/v1/employee/login`,
-                data
+                data,
+                {withCredentials:true}
             )
             return response.data.data
         } catch (error) {

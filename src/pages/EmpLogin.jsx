@@ -6,13 +6,18 @@ import {Label} from '../components/ui/label'
 import { useForm } from 'react-hook-form';
 import employeeServices from '../services/employees.services';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../store/authSlice';
 
 const EmpLogin = () => {
+  const dispatch=useDispatch()
   const navigate=useNavigate()
     const {register,handleSubmit}=useForm()
     const empLogin = async(data) => {
       const response=await employeeServices.employeeLogin({data})
       console.log(response);
+      dispatch(login(response))
+      
      if(response){
       navigate(`/empdash`)
      }

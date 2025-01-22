@@ -6,6 +6,7 @@ import asyncHandler from "../utils/AsyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { sendEmail } from "../utils/Email.js";
 import { generateEmployeeRegistration } from "../Emails/employee.js";
+import jwt from 'jsonwebtoken'
 
 const registerEmployee = asyncHandler(async (req, res) => {
   const {
@@ -77,7 +78,25 @@ const employeeLogin = asyncHandler(async (req, res) => {
     if(!checkedPassword){
       throw new ApiError(400,"invalid credentials")
     }
-  res.status(200).json(
+    const options = {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    }
+    const refreshToken=await jwt.sign(
+      {
+        id:employee._id
+      },
+      process.env.ACCESS_TOKEN_SCRT,
+      {expiresIn:process.env.ACCESS_TOKEN_EXPIRY}
+    )
+    employee.refreshToken=refreshToken
+    employee.save()
+  res
+  .status(200)
+  .cookie("accessToken", refreshToken, options)
+  .cookie("refreshToken", refreshToken, options)
+  .json(
     new ApiResponse(
       200,
       "employee Login SuccessFull",

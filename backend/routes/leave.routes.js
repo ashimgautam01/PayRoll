@@ -4,7 +4,7 @@ import { applyLeave, changeStatus, getLeave } from '../controllers/leave.control
 const router =Router()
 
 router.route('/apply').post(applyLeave)
-router.route('/getleave').get(getLeave)
+router.route('/getleave/:id').get(getLeave)
 router.route('/changeStatus/:id').patch(changeStatus)
 
 export default router

@@ -79,6 +79,9 @@ const EmployeeSchema = new Schema(
     gender: {
       type: String,
     },
+    refreshToken:{
+      type:String
+    },
     emergencyContact: {
       ename: {
         type: String,

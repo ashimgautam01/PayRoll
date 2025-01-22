@@ -1,12 +1,13 @@
 import axios from "axios";
-import {BASE_URL} from '../lib/constants.js'
+import {BASE_URL} from '../lib/constants/Constants.js'
+
 class LeaveServices{
 
-    async applyLeave({data}){
+    async applyLeave({user,data}){
         try {
             const response=await axios.post(
                 `${BASE_URL}/api/v1/leave/apply`,
-                data
+                {employee:user,data}
             )
             return response
         } catch (error) {
@@ -17,8 +18,9 @@ class LeaveServices{
     async getLeave({employee}){
         try {
             const response=await axios.get(
-                `${BASE_URL}/api/v1/get`,
-               { employee}
+                `${BASE_URL}/api/v1/leave/getleave/${employee}`,
+               
+               {withCredentials:true}
             )
             return response
         } catch (error) {
