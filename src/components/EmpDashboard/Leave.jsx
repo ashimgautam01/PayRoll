@@ -25,29 +25,14 @@ import { useForm } from "react-hook-form";
 import { leaveService } from "../../services/leaveServices";
 import { useSelector } from "react-redux";
 
-// const leaveApplications = [
-//   {
-//     id: 1,
-//     startDate: "2023-07-01",
-//     endDate: "2023-07-05",
-//     type: "Vacation",
-//     status: "Approved",
-//   },
-//   {
-//     id: 2,
-//     startDate: "2023-08-15",
-//     endDate: "2023-08-16",
-//     type: "Sick Leave",
-//     status: "Pending",
-//   },
-// ];
+ 
 
 const Leave = () => {
   const {register,handleSubmit,reset}=useForm()
   const [leaveApplications,setLeaveapplications]=useState([])
- const user=useSelector((state)=>state.auth.data.id)
+ const user=useSelector((state)=>state.auth.data.id)|| useSelector((state)=>state.auth.data._id)
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+console.log(user);
   const handleLeaveSubmit =async (data) => {
     const response=await leaveService.applyLeave({user,data})
     console.log(response);

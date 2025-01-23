@@ -5,6 +5,10 @@ const leaveSchema=new Schema({
         type:mongoose.Types.ObjectId,
         ref:"Employee"
     },
+     company:{
+            type:mongoose.Types.ObjectId,
+            ref:"Company"
+        },
     leaveType:{
         type:String,
     },
@@ -22,6 +26,9 @@ const leaveSchema=new Schema({
         enum:["approved","rejected","pending"],     
         default:"pending"
     },
+},
+{
+    timestamps:true
 })
 
 const Leave=mongoose.model("Leave",leaveSchema)

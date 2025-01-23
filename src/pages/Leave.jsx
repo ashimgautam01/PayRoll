@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AdminSidebar from '../components/Sidebar'
 import AdminHeader from '../components/AdminHeader'
 import { Eye, Search } from 'lucide-react'
@@ -19,78 +19,29 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { leaveService } from '../services/leaveServices'
 
-const leaveApplications = [
-  {
-    sno: 1,
-    empId: "EMP001",
-    name: "John Doe",
-    leaveType: "Annual",
-    appliedDate: "2023-05-15",
-    startDate: "2023-05-20",
-    endDate: "2023-05-25",
-    department: "Finance",
-    status: "Rejected",
-  },
-  {
-    sno: 2,
-    empId: "EMP002",
-    name: "Jane Smith",
-    leaveType: "Sick",
-    appliedDate: "2023-05-16",
-    startDate: "2023-05-18",
-    endDate: "2023-05-22",
-    department: "HR",
-    status: "Approved",
-  },
-  {
-    sno: 3,
-    empId: "EMP003",
-    name: "Mike Johnson",
-    leaveType: "Personal",
-    appliedDate: "2023-05-17",
-    startDate: "2023-05-23",
-    endDate: "2023-05-27",
-    department: "IT",
-    status: "Rejected",
-  },
-  {
-    sno: 4,
-    empId: "EMP004",
-    name: "Emily Brown",
-    leaveType: "Annual",
-    appliedDate: "2023-05-18",
-    startDate: "2023-05-25",
-    endDate: "2023-05-30",
-    department: "Marketing",
-    status: "Rejected",
-  },
-  {
-    sno: 5,
-    empId: "EMP005",
-    name: "David Wilson",
-    leaveType: "Sick",
-    appliedDate: "2023-05-19",
-    startDate: "2023-05-21",
-    endDate: "2023-05-24",
-    department: "Operations",
-    status: "Approved",
-  },
-];
                                                                                                                                                                                                                                                                                                                               
 const Leave = () => {
   const [model, setModel] = useState(false);
+  const [leaveApplications,setLeaveApplication]=useState([])
   const [selectedApplication, setSelectedApplication] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-console.log(selectedApplication);
   const filteredApplications = leaveApplications.filter(
     (application) =>
-      application.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      application.empId.toLowerCase().includes(searchTerm.toLowerCase()) ||
       application.leaveType.toLowerCase().includes(searchTerm.toLowerCase()) ||
       application.status.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
+  const company=sessionStorage.getItem('company')
+  const company_id=JSON.parse(company).company_id
+const getApplications=async()=>{
+  const response=await leaveService.getAllLeave({company:company_id})
+  setLeaveApplication(response.data.data)
+  console.log(response.data.data);
+}
+  useEffect(()=>{
+    getApplications()
+  },[])
   const handleView = (application) => {
     setSelectedApplication(application);
     setModel(true);
@@ -130,13 +81,13 @@ console.log(selectedApplication);
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {filteredApplications.map((application) => (
-                        <TableRow key={application.sno} className="hover:bg-teal-50 transition-colors">
-                          <TableCell>{application.sno}</TableCell>
-                          <TableCell>{application.empId}</TableCell>
+                      {filteredApplications.map((application,index) => (
+                        <TableRow key={index} className="hover:bg-teal-50 transition-colors">
+                          <TableCell>{index+1}</TableCell>
+                          <TableCell>{application.emp_id}</TableCell>
                           <TableCell className="font-medium">{application.name}</TableCell>
                           <TableCell>{application.leaveType}</TableCell>
-                          <TableCell>{application.appliedDate}</TableCell>
+                          <TableCell>{new Date(application.startDate).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' })}</TableCell>
                           <TableCell>
                             <span
                               className={`px-3 py-1 rounded-full text-xs font-semibold ${
@@ -172,14 +123,14 @@ console.log(selectedApplication);
                   <DialogTitle>Application for Leave</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-4">
-                  <p className="text-right text-sm font-medium">Date: {selectedApplication.appliedDate}</p>
+                  <p className="text-right text-sm font-medium">Date: {new Date(selectedApplication.createdAt).toLocaleDateString('en-GB',{day:"numeric",month:"short",year:"numeric"})}</p>
                   <p>To: HR Manager</p>
                   <p>Subject: Application for Leave</p>
                   <p>Dear Sir/Madam,</p>
                   <p>
                     I am writing to formally request leave from{" "}
-                    <span className="text-red-700 font-medium">{selectedApplication.startDate}</span> to{" "}
-                    <span className="text-red-700 font-medium">{selectedApplication.endDate}</span>, as I need to take{" "}
+                    <span className="text-red-700 font-medium">{new Date(selectedApplication.startDate).toLocaleDateString('en-GB',{day:'numeric',month:"short",year:"numeric"})}</span> to{" "}
+                    <span className="text-red-700 font-medium">{new Date(selectedApplication.endDate).toLocaleDateString('en-GB',{day:"numeric",month:"short",year:"numeric"})}</span>, as I need to take{" "}
                     <span className="text-blue-700 font-bold">{selectedApplication.leaveType}</span> leave. During my
                     absence, I will ensure that my responsibilities are managed.
                   </p>
@@ -189,8 +140,7 @@ console.log(selectedApplication);
                   </p>
                   <p>Sincerely,</p>
                   <p className="text-gray-950 font-medium">{selectedApplication.name}</p>
-                  <p className="text-teal-800 text-semibold">Department: {selectedApplication.department}</p>
-                  <p className="text-yellow-800 ">Employee ID: {selectedApplication.empId}</p>
+                  <p className="text-yellow-800 ">Employee ID: {selectedApplication.emp_id}</p>
                 </div>
                 <DialogFooter>
                   <Button variant="outline" onClick={() => setModel(false)} className="hover:bg-red-500 hover:text-white">

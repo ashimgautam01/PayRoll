@@ -28,10 +28,12 @@ class LeaveServices{
         }
     }
 
-    async getAllLeave(){
+    async getAllLeave({company}){
         try {
             const resposne=await axios.get(
-                `${BASE_URL}/api/v1/getall`
+                `${BASE_URL}/api/v1/leave/getall/${company}`,
+                
+                {withCredentials:true}
             )
             return resposne
         } catch (error) {

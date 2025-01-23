@@ -24,7 +24,7 @@ const Salaryinfo = () => {
   // Helper function to format date
   const formatDate = (dateString) => {
     const date = new Date(dateString)
-    return date.toLocaleDateString() // Returns in format like "1/22/2025"
+    return date.toLocaleDateString() 
   }
 
   return (
