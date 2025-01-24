@@ -47,6 +47,16 @@ const getApplications=async()=>{
     setModel(true);
   };
 
+  const handleChangeStatus=async(status)=>{
+    console.log(selectedApplication._id);
+    const response=await leaveService.changeStatus({id:selectedApplication._id,status})
+    if(response){
+      console.log("status changed");
+    }
+    getApplications()
+    setModel(false)
+  }
+
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="flex">
@@ -143,10 +153,10 @@ const getApplications=async()=>{
                   <p className="text-yellow-800 ">Employee ID: {selectedApplication.emp_id}</p>
                 </div>
                 <DialogFooter>
-                  <Button variant="outline" onClick={() => setModel(false)} className="hover:bg-red-500 hover:text-white">
+                  <Button variant="outline" onClick={()=>handleChangeStatus('rejected')} className="hover:bg-red-500 hover:text-white">
                     Reject
                   </Button>
-                  <Button onClick={() => setModel(false)} className="bg-green-500 hover:scale-105 hover:bg-green-700">Approve</Button>
+                  <Button onClick={()=>handleChangeStatus('approved')} className="bg-green-500 hover:scale-105 hover:bg-green-700">Approve</Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>

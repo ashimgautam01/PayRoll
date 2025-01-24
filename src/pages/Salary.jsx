@@ -180,7 +180,7 @@ const Salary = () => {
                           View
                         </div>
                       </Button>
-                      {getDaysDifference(employee) < 30 ? (
+                      {getDaysDifference(employee) > 30 ? (
                         <Button
                           onClick={() => update(employee._id)}
                           className="bg-blue-600 hover:bg-blue-800"

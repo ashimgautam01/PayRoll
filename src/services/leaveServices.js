@@ -44,7 +44,7 @@ class LeaveServices{
     async changeStatus({id,status}){
         try {
             const response=await axios.patch(
-                `${BASE_URL}/api/v1/changeStatus`,
+                `${BASE_URL}/api/v1/leave/changeStatus/${id}`,
                 {status}
             )
             return response

@@ -70,9 +70,10 @@ const getAllLeave = asyncHandler(async (req, res) => {
 });
 
 const changeStatus = asyncHandler(async (req, res) => {
-  const id = req.params;
-  const { status } = req.body;
-  const leave = await Leave.findById({ _id: id });
+  const {id} = req.params;
+  const { status } = req.body
+  console.log(status);
+  const leave = await Leave.findOne({ _id: id });
   if (!leave) {
     throw new ApiError(400, "no leave found");
   }
@@ -81,6 +82,7 @@ const changeStatus = asyncHandler(async (req, res) => {
     { $set: { status } },
     { new: true }
   );
+  console.log(changed);
   if (!changed) {
     throw new ApiError(400, "failed to update status");
   }
