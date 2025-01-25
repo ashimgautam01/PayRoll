@@ -13,6 +13,7 @@ import Salary from './pages/Salary'
 import Leave from './pages/Leave'
 import EmpLogin from './pages/EmpLogin'
 import EmployeeDashboard from './pages/EmployeeDashboard'
+import Setting from './pages/Setting'
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
         <Route path='/leaves' element={<Leave/>}/>
         <Route path='/emplogin' element={<EmpLogin/>}/>
         <Route path='/empdash' element={<EmployeeDashboard/>}/>
+        <Route path='/setting' element={<Setting/>}/>
     </Routes>
     </BrowserRouter>
     </>

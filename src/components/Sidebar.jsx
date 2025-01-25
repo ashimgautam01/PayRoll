@@ -8,7 +8,7 @@ const AdminSidebar = () => {
     { title: "Employees", icon: Users, url: "/employees" },
     { title: "Salary", icon: DollarSign, url: "/salary" },
     { title: "Leaves", icon: Home, url: "/leaves" },
-    { title: "Settings", icon: Settings, url: "s/ettings" },
+    { title: "Settings", icon: Settings, url: "/setting" },
     { title: "Logout", icon: LogOut, url: "/logout" },
   ];
 
