@@ -50,28 +50,20 @@ const companySchema = new Schema(
     establishedDate: {
       type: Date,
     },
-    metrics: [
-      {
-        revenue: {
-          type: String,
-        },
-        growth: {
-          type: Number,
-          min: 0,
-        },
-        customers: {
-          type: Number,
-          min: 0,
-        },
-        branches: {
-          type: Number,
-          min: 0,
-        },
-        month:{
-          type:String
-        }
+    metrics: [{
+      revenue: {
+        type: Number,
+        default: 0
       },
-    ],
+      month: {
+        type: String,
+        required: true
+      },
+      expense: {
+        type: Number,
+        default: 0
+      }
+    }]
   },
   {
     timestamps: true,

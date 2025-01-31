@@ -27,6 +27,20 @@ class CompanyServices{
             throw error
         }
     }
+
+    async updateMonthlyData({newData}){
+        try {
+            const response=await axios.put(
+                `${BASE_URL}/api/v1/company/updatemonthly`,
+                {newData},
+                {withCredentials:true}
+            )
+        } catch (error) {
+            console.log(error);
+            return null
+        }
+    }
+
 }
 
 

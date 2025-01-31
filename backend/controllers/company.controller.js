@@ -67,6 +67,39 @@ const getUserCompany=asyncHandler(async(req,res)=>{
     )
 })
 
+const updateMonthlyData = asyncHandler(async (req, res) => {
+  const { newData } = req.body;
+  
+  if (!newData?.company_id || !newData?.month || !newData?.revenue || !newData?.expense) {
+    throw new ApiError(400, "All fields are required");
+  }
+
+  const company = await Company.findById(newData.company_id);
+  if (!company) {
+    throw new ApiError(404, "Company not found");
+  }
+
+  const monthIndex = company.metrics.findIndex(m => m.month.toLowerCase() === newData.month.toLowerCase());
+
+  if (monthIndex > -1) {
+    company.metrics[monthIndex] = {
+      revenue: Number(newData.revenue),
+      expense: Number(newData.expense),
+      month: newData.month.toLowerCase()
+    };
+  } else {
+    company.metrics.push({
+      revenue: Number(newData.revenue),
+      expense: Number(newData.expense),
+      month: newData.month.toLowerCase()
+    });
+  }
+  await company.save();
+
+  return res.status(200).json(
+    new ApiResponse(200, "Metrics updated successfully", company)
+  );
+});
 
 
-export { createCompany,getUserCompany };
+export { createCompany,getUserCompany ,updateMonthlyData};
