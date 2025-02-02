@@ -41,6 +41,19 @@ class CompanyServices{
         }
     }
 
+    async getMonthlyData({id}){
+        try {
+            const response=await axios.get(
+                `${BASE_URL}/api/v1/company/getdata/${id}`,
+                {withCredentials:true}
+            )
+            return response.data
+        } catch (error) {
+            console.log(error);
+            throw error
+        }
+    }
+
 }
 
 

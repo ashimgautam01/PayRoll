@@ -101,5 +101,20 @@ const updateMonthlyData = asyncHandler(async (req, res) => {
   );
 });
 
+const getMonthlyData=asyncHandler(async(req,res)=>{
+  const {id}=req.params
+  const company=await Company.findOne({_id:id}).select("metrics -_id")
+  if(!company){
+    throw new ApiError(402,"no company found")
+  }
+  console.log(company);
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      "data loaded",
+      company
+    )
+  )
+})
 
-export { createCompany,getUserCompany ,updateMonthlyData};
+export { createCompany,getUserCompany ,updateMonthlyData,getMonthlyData};

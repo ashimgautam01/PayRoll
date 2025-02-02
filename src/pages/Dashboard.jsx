@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AdminSidebar from "../components/Sidebar";
 
 import {
@@ -34,26 +34,38 @@ import {
   Users,
 } from "lucide-react";
 import AdminHeader from "../components/AdminHeader";
+import companyService from "../services/companyServices";
 
 
-const monthlySalaryData = [
-    { month: "Jan", salary: 5000, salesEmployees: 4000 },
-    { month: "Feb", salary: 5100, salesEmployees: 3900 },
-    { month: "Mar", salary: 4800, salesEmployees: 4200 },
-    { month: "Apr", salary: 5300, salesEmployees: 4400 },
-    { month: "May", salary: 5200, salesEmployees: 4600 },
-    { month: "Jun", salary: 5400, salesEmployees: 4700 },
-    { month: "Jul", salary: 5500, salesEmployees: 4600 },
-    { month: "Aug", salary: 5700, salesEmployees: 4800 },
-    { month: "Sep", salary: 5600, salesEmployees: 4900 },
-    { month: "Oct", salary: 5800, salesEmployees: 5100 },
-    { month: "Nov", salary: 5900, salesEmployees: 5000 },
-    { month: "Dec", salary: 6000, salesEmployees: 5200 },
-  ];
+// const monthlyData = [
+//     { month: "Jan", salary: 5000, salesEmployees: 4000 },
+//     { month: "Feb", salary: 5100, salesEmployees: 3900 },
+//     { month: "Mar", salary: 4800, salesEmployees: 4200 },
+//     { month: "Apr", salary: 5300, salesEmployees: 4400 },
+//     { month: "May", salary: 5200, salesEmployees: 4600 },
+//     { month: "Jun", salary: 5400, salesEmployees: 4700 },
+//     { month: "Jul", salary: 5500, salesEmployees: 4600 },
+//     { month: "Aug", salary: 5700, salesEmployees: 4800 },
+//     { month: "Sep", salary: 5600, salesEmployees: 4900 },
+//     { month: "Oct", salary: 5800, salesEmployees: 5100 },
+//     { month: "Nov", salary: 5900, salesEmployees: 5000 },
+//     { month: "Dec", salary: 6000, salesEmployees: 5200 },
+//   ];
   
   
 
 const Dashboard = () => {
+  const company = sessionStorage.getItem("company");
+  const id = JSON.parse(company)?.company_id;
+  const [monthlyData,setMonthlyData]=useState([])
+  const fetchData=async()=>{
+    const response=await companyService.getMonthlyData({id})
+    console.log(response.data.metrics);
+    setMonthlyData(response.data.metrics)
+  }
+  useEffect(()=>{
+    fetchData()
+  },[])
   return (
     <div>
       <div className="flex">
@@ -74,7 +86,7 @@ const Dashboard = () => {
     <ChartContainer
       config={{
         salary: {
-          label: "Salary",
+          label: "Revenue",
           color: "green",
         },
         salesEmployees: {
@@ -85,25 +97,25 @@ const Dashboard = () => {
       className="h-[300px] w-[500px]"
     >
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={monthlySalaryData}>
+        <LineChart data={monthlyData}>
           <XAxis dataKey="month" />
           <YAxis />
           <ChartTooltip content={<ChartTooltipContent />} />
           
           <Line
             type="monotone"
-            dataKey="salary"
+            dataKey="revenue"
             stroke="green"                         
             strokeWidth={3}
-            name="Salary"
+            name="revenue"
           />
 
           <Line
             type="monotone"
-            dataKey="salesEmployees"
+            dataKey="expense"
             stroke="blue"
             strokeWidth={3}
-            name="Sales Employees"
+            name="expense"
           />
         </LineChart>
       </ResponsiveContainer>
