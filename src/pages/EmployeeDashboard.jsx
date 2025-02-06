@@ -10,8 +10,12 @@ import { User, Calendar, DollarSign } from "lucide-react";
 import Salaryinfo from "../components/EmpDashboard/Salaryinfo";
 import Leave from "../components/EmpDashboard/Leave";
 import EmpDetails from "../components/EmpDashboard/EmpDetails";
+import { useSelector } from "react-redux";
+import employeeServices from "../services/employees.services";
+import { useEffect } from "react";
 
 const EmployeeDashboard = () => {
+
   return (
     <>
       <div>

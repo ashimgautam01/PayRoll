@@ -12,15 +12,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useDispatch, useSelector } from "react-redux";
-import {logout} from '../store/authSlice.js'
+import { logout } from "../store/authSlice";
+import authService from "../services/authServices";
 
 const Navbar = () => {
   const authStatus=useSelector((status)=>status.auth.status)
   const dispatch=useDispatch()
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => setIsOpen(true);
-  const handleLogOut=()=>{
+  const handleLogOut=async()=>{
+    const response=await authService.logOut()
+    if(response){
+
     dispatch(logout())
+    }
   }
   return (
     <div>

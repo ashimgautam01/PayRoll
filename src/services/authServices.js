@@ -38,6 +38,19 @@ class AuthService {
         throw error
     }
   }
+  async logOut(){
+    try {
+      const response=await axios.post(
+        `${BASE_URL}/api/v1/users/logout`,
+        {},
+        {withCredentials:true}  
+      )
+      return response
+    } catch (error) {
+      console.log(error); 
+     return null
+    }
+  }
 }
 const authService = new AuthService();
 export default authService;

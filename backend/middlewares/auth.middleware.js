@@ -3,7 +3,6 @@ import ApiError from '../utils/ApiError.js';
 
 const verifyJwt=(req,res,next)=>{
    try {
-
      const token=req.cookies?.accessToken
      if(!token){
          throw new Error(400,"token is required")
