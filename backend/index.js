@@ -2,17 +2,17 @@ import express from 'express'
 import { config } from 'dotenv'
 import connectDB from './db/db.js'
 import cookieParser from 'cookie-parser'
-// import cors from 'cors'
+import cors from 'cors'
 config()
 const PORT =process.env.PORT || 3000
 const app=express()
-// app.use(cors({
-//     origin:"https://payfront-peach.vercel.app",
-//     methods:["POST","GET","PATCH","PUT","DELETE"],
-//     credentials:true
-// }))
+app.use(cors({
+    origin:"*",
+    methods:["POST","GET","PATCH","PUT","DELETE"],
+    credentials:true
+}))
 
-// app.use(express.json())
+app.use(express.json())
 app.use(cookieParser())
 
 
