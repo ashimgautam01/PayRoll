@@ -36,7 +36,10 @@ app.use('/api/v1/employee',employeeRouter)
 app.use('/api/v1/salary',salaryRouter)
 app.use('/api/v1/leave',leaveRouter)
 
-app.get('/', (req, res) => res.send('Server is running'));
+app.get('/', (req, res) => {
+    console.log("hi");
+    res.json("hello")
+});
 
 
 
