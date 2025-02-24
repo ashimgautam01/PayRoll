@@ -7,10 +7,11 @@ config()
 const PORT =process.env.PORT || 3000
 const app=express()
 app.use(cors({
-    origin:"*",
-    methods:["POST","GET","PATCH","PUT","DELETE"],
-    credentials:true
-}))
+    origin: "https://payfront-peach.vercel.app",
+    methods: ["POST", "GET", "PATCH", "PUT", "DELETE"],
+    credentials: true
+}));
+
 
 app.use(express.json())
 app.use(cookieParser())
