@@ -57,7 +57,6 @@ const companySchema = new Schema(
       },
       month: {
         type: String,
-        required: true
       },
       expense: {
         type: Number,

@@ -43,7 +43,7 @@ const registerEmployee = asyncHandler(async (req, res) => {
     profile: profile.url,
     department,
     address,
-    phone:cdphone[0],
+    phone:phone[0],
     dob,
     maritalStatus,
     education,

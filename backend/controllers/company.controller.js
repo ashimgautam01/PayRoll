@@ -69,9 +69,10 @@ const getUserCompany=asyncHandler(async(req,res)=>{
 
 const updateMonthlyData = asyncHandler(async (req, res) => {
   const { newData } = req.body;
-  
+
+  // Validate required fields
   if (!newData?.company_id || !newData?.month || !newData?.revenue || !newData?.expense) {
-    throw new ApiError(400, "All fields are required");
+    throw new ApiError(400, "All fields (company_id, month, revenue, expense) are required");
   }
 
   const company = await Company.findById(newData.company_id);
@@ -79,21 +80,30 @@ const updateMonthlyData = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Company not found");
   }
 
-  const monthIndex = company.metrics.findIndex(m => m.month.toLowerCase() === newData.month.toLowerCase());
+  // Ensure month is valid before calling toLowerCase
+  const month = newData.month?.toLowerCase();
+  if (!month || typeof month !== "string") {
+    throw new ApiError(400, "Invalid month value");
+  }
+
+  const monthIndex = company.metrics.findIndex(m => m.month === month);
 
   if (monthIndex > -1) {
+    // Update existing month metrics
     company.metrics[monthIndex] = {
       revenue: Number(newData.revenue),
       expense: Number(newData.expense),
-      month: newData.month.toLowerCase()
+      month: month
     };
   } else {
+    // Add new month metrics
     company.metrics.push({
       revenue: Number(newData.revenue),
       expense: Number(newData.expense),
-      month: newData.month.toLowerCase()
+      month: month
     });
   }
+
   await company.save();
 
   return res.status(200).json(
